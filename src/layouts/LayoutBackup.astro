@@ -1,0 +1,179 @@
+---
+import { ViewTransitions } from 'astro:transitions'
+import Header from '@/components/Header.astro'
+import "@fontsource-variable/inter"
+import "@fontsource/inria-serif"
+
+interface Props {
+	title: string
+}
+
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={ Astro.generator } />
+		<title>{ title }</title>
+		<ViewTransitions />
+	</head>
+	<body data-scroll-container>
+		<Header/>
+		<main class="z-20 relative" data-scroll-section>
+			<slot />
+		</main>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--background: #181616;
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+	html {
+		font-family: 'Inter Variable', sans-serif;
+		background: var(--background);
+		color: #fff;
+		overflow: hidden;
+	}
+
+	body {
+		overflow: hidden;
+	}
+
+	html.has-scroll-smooth {
+		overflow: hidden;
+	}
+
+	html.has-scroll-dragging {
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	.has-scroll-smooth body {
+		overflow: hidden;
+	}
+
+	.c-scrollbar {
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 11px;
+		height: 100%;
+		transform-origin: center right;
+		transition: transform 0.3s, opacity 0.3s;
+		opacity: 0;
+		z-index: 99999;
+	}
+
+	.c-scrollbar:hover {
+		transform: scaleX(1.45);
+	}
+
+	.c-scrollbar:hover, .has-scroll-scrolling .c-scrollbar, .has-scroll-dragging .c-scrollbar {
+		opacity: 1;
+	}
+
+	[data-scroll-direction="horizontal"] .c-scrollbar {
+		width: 100%;
+		height: 10px;
+		top: auto;
+		bottom: 0;
+		transform: scaleY(1);
+	}
+
+	[data-scroll-direction="horizontal"] .c-scrollbar:hover {
+		transform: scaleY(1.3);
+	}
+
+	.c-scrollbar_thumb {
+		position: absolute;
+		top: 0;
+		right: 0;
+		background-color: white;
+		opacity: 0.16;
+		width: 7px;
+		border-radius: 10px;
+		margin: 2px;
+		cursor: -webkit-grab;
+		cursor: grab;
+	}
+	.has-scroll-dragging .c-scrollbar_thumb {
+		cursor: -webkit-grabbing;
+		cursor: grabbing;
+	}
+
+	[data-scroll-direction="horizontal"] .c-scrollbar_thumb {
+		right: auto;
+		bottom: 0;
+	}
+</style>
+
+<script>
+  // import LocomotiveScroll from 'locomotive-scroll';
+  import gsap from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+	// document.addEventListener("astro:page-load", () => {
+	// 	new LocomotiveScroll({
+	// 		el: document.querySelector("[data-scroll-container]") as HTMLElement,
+	// 		smooth: true
+	// 	}
+	// )})
+  
+  document.addEventListener('astro:page-load', () => {
+    gsap.registerPlugin(ScrollTrigger)
+    const elements = gsap.utils.toArray<HTMLElement>('.reveal-up')
+
+    gsap.fromTo(
+      elements,
+      { y: 100, autoAlpha: 0 },
+      {
+        duration: 1,
+        y: 0,
+        autoAlpha: 1,
+        ease: "back",
+        stagger: 0.16,
+        scrollTrigger: {
+          trigger: elements,
+          start: "top 100%",
+          end: "bottom 0%",
+          onEnter: () => {
+            gsap.fromTo(
+              elements,
+              { y: 100, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: 1, stagger: 0.16, ease: "back" }
+            )
+          },
+          // onLeave: () => {
+          //   gsap.to(elements, { autoAlpha: 0, stagger: 0.1 })
+          // },
+          // onEnterBack: () => {
+          //   gsap.fromTo(
+          //     elements,
+          //     { y: -100, autoAlpha: 0 },
+          //     { y: 0, autoAlpha: 1, duration: 1, stagger: 0.1, ease: "back" }
+          //   )
+          // },
+          // onLeaveBack: () => {
+          //   gsap.to(elements, { autoAlpha: 0, stagger: 0.1 })
+          // }
+        }
+      }
+    )
+  })
+</script>

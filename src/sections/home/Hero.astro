@@ -1,0 +1,93 @@
+---
+import Background from "@/components/Background.astro"
+import Container from "@/components/Container.astro"
+import RevealUp from "@/components/RevealUp.astro"
+import Move from "@/components/Move.astro"
+
+const images = [
+  {
+    src: "/images/image01.webp",
+    dataSpeed: "0.02",
+    class: "top-0 -left-4 z-10 w-[45%]",
+    alt: "Image 1"
+  },
+  {
+    src: "/images/image02.webp",
+    dataSpeed: "0.04",
+    class: "bottom-0 left-16 z-30 w-[35%]",
+    alt: "Image 2"
+  },
+  {
+    src: "/images/image03.webp",
+    dataSpeed: "0.03",
+    class: "top-32 left-1/3 z-20 w-[45%]",
+    alt: "Image 3"
+  },
+  {
+    src: "/images/image04.webp",
+    dataSpeed: "0.05",
+    class: "-right-2 top-24 z-30 w-[35%] flex justify-end",
+    alt: "Image 4"
+  },
+  {
+    src: "/images/piemonte-dal-vivo-logo.webp",
+    dataSpeed: "0.06",
+    class: "right-4 bottom-48 z-30 w-[35%] flex justify-end",
+    alt: "Image 4"
+  }
+]
+
+---
+
+<div class="flex items-center justify-center min-h-[calc(100vh-85px)] relative reveal-up-wrapper">
+  <Container>
+    <div class="flex items-center">
+      <div class="w-3/4 h-[84vh] -top-4 flex-[0_0_75%] relative">
+        { images.slice(0, 5).map((image) => (
+          <div class={`absolute ${ image.class }`}>
+            <div class="reveal-up-hero invisible">
+              <Move dataSpeed={ image.dataSpeed }>
+                <img src={ image.src } alt={ image.alt } />
+              </Move>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="w-1/4 flex-[0_0_25%] flex justify-end" data-scroll data-scroll-speed="-1">
+        <div class="reveal-up-hero invisible">
+          <Move dataSpeed="0.02">
+            <img src="/images/ragazzi.svg" alt="">
+          </Move>
+        </div>
+      </div>
+    </div>
+  </Container>
+</div>
+
+<script>
+  import gsap from 'gsap'
+	import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+	document.addEventListener("astro:page-load", () => {
+		gsap.registerPlugin(ScrollTrigger)
+		ScrollTrigger.batch(".reveal-up-hero", {
+			onEnter: (batch) => {
+				gsap.fromTo(
+					batch,
+					{ y: 100, autoAlpha: 0 },
+					{
+						duration: 1,
+						y: 0,
+						autoAlpha: 1,
+						ease: "back",
+						stagger: 0.16,
+						overwrite: "auto",
+					}
+				);
+			},
+			start: "top 100%",
+			end: "bottom 0%",
+      once: true
+		})
+	})
+</script>

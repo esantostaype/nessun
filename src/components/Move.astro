@@ -1,0 +1,35 @@
+---
+interface Props {
+	dataSpeed: string
+}
+
+const { dataSpeed } = Astro.props
+---
+
+<div class="move" data-speed={ dataSpeed }>
+  <slot />
+</div>
+
+<script>
+  import gsap from 'gsap'  
+  document.addEventListener('astro:page-load', () => {
+    const images = gsap.utils.toArray<HTMLElement>('.move')
+
+    document.addEventListener('mousemove', (event) => {
+      const { clientX, clientY } = event
+
+      images.forEach((image) => {
+        const speed = parseFloat(image.getAttribute('data-speed') || '0.02')
+        const movementX = (clientX - window.innerWidth / 2) * speed
+        const movementY = (clientY - window.innerHeight / 2) * speed
+
+        gsap.to(image, {
+          x: -movementX,
+          y: -movementY,
+          duration: 2,
+          ease: "power3.out"
+        })
+      })
+    })
+  })
+</script>

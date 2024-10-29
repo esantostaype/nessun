@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets'
+import type { Event } from '@/interfaces'
+import { getEvents } from '@/api'
+import { format } from '@formkit/tempo'
+const events: Event[] = await getEvents()
+---
+
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper pt-2">
+    {events.map((event) => {
+      const numberDay = format(event.startDate, "DD", "it")
+      const day = format(event.startDate, "dddd", "it")
+      const month = format(event.startDate, "MMMM", "it")
+      const hour = format(event.startDate, "HH:mm", "it")
+
+      return (
+        <div class="swiper-slide reveal-up-events invisible">
+          <a href={`/events/${event.slug}`} class="group">
+            <div class="overflow-hidden rounded group-hover:scale-[1.02] transition-all duration-300">
+              <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image } alt={ event.title } class="aspect-[3/5] w-full object-cover group-hover:scale-110 transition-all duration-500" />
+            </div>
+            <div class="flex items-center gap-4 py-2 -ml-1">
+              <div class="text-7xl font-inria italic">{ numberDay }</div>
+              <div class="text-sm uppercase leading-tight">
+                <div>{ day }</div>
+                <div>{ month }</div>
+                <div>Ore: { hour }</div>
+              </div>
+            </div>
+            <h2 class="relative z-20 font-semibold text-xl leading-tight mb-1">{ event.title }</h2>
+            <span class="opacity-50 text-sm">Direttore: { event.direttore }</span>
+          </a>
+        </div>
+      )
+    })}
+  </div>
+</div>
+
+<style>
+  @import 'swiper/css/bundle';
+</style>
+
+<script>
+  import Swiper from 'swiper'
+  import gsap from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  document.addEventListener("astro:page-load", () => {
+    gsap.registerPlugin(ScrollTrigger)
+    
+    new Swiper(".mySwiper", {
+      loop: false,
+      pagination: { el: ".swiper-pagination", clickable: true },
+      navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+      spaceBetween: 48,
+      slidesPerView: 1,
+      breakpoints: {
+        640: { slidesPerView: 2 },
+        768: { slidesPerView: 3 },
+        1024: { slidesPerView: 4 }
+      }
+    })
+
+    ScrollTrigger.batch(".reveal-up-events", {
+      onEnter: (batch) => {
+        gsap.fromTo(
+          batch,
+          { y: 100, autoAlpha: 0 },
+          {
+            duration: 1,
+            y: 0,
+            autoAlpha: 1,
+            ease: "back",
+            stagger: 0.16,
+            overwrite: "auto"
+          }
+        )
+      },
+      start: "top 100%",
+      end: "bottom 0%",
+      once: true
+    })
+  })
+</script>

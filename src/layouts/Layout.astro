@@ -1,0 +1,58 @@
+---
+import { ViewTransitions } from 'astro:transitions'
+import Header from '@/components/Header.astro'
+import "@fontsource-variable/inter"
+import "@fontsource/inria-serif"
+import Background from '@/components/Background.astro'
+
+interface Props {
+	title: string
+}
+
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={ Astro.generator } />
+		<title>{ title }</title>
+		<ViewTransitions />
+	</head>
+	<body id="smooth-wrapper">
+		<Header/>
+		<main class="z-20 relative pt-[85px]" id="smooth-content">
+			<slot />
+		</main>
+		<Background/>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--background: #181616;
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+	html {
+		font-family: 'Inter Variable', sans-serif;
+		background: var(--background);
+		color: #fff;
+		overflow-x: hidden;
+		scrollbar-width: none;
+	}
+</style>
+
+<script>
+</script>

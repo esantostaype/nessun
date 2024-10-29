@@ -1,0 +1,18 @@
+---
+import OrnamentLeft from '@/components/OrnamentLeft.astro'
+import OrnamentRight from '@/components/OrnamentRight.astro'
+import RevealUp from './RevealUp.astro'
+interface Props {
+	label: string
+}
+
+const { label } = Astro.props
+---
+
+<RevealUp>
+  <div class="flex gap-4 justify-center mb-8">
+    <OrnamentLeft/>
+      <h3 class="font-inria text-4xl uppercase leading-none">{ label }</h3>
+    <OrnamentRight/>
+  </div>
+</RevealUp>

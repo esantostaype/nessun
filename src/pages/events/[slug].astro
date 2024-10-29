@@ -1,0 +1,72 @@
+---
+import { getEvent, getEvents } from '@/api';
+import Container from '@/components/Container.astro'
+import Layout from '@/layouts/Layout.astro'
+import type { Event } from '@/interfaces'
+const { slug } = Astro.params
+const events: Event[] = await getEvents()
+const eventId = events.find(event => event.slug === slug)?.id
+const event = await getEvent( eventId || '' )
+
+export async function getStaticPaths() {
+  const events: Event[] = await getEvents();
+  return events.map((event) => ({
+    params: { slug: event.slug },
+    props: { id: event.id }
+  }))
+}
+---
+
+<Layout title="Nessun Dorma">
+  <section class="py-20">
+    <Container>
+      <div class="relative flex items-center gap-12">
+        <div class='reveal invisible relative overflow-hidden flex-[0_0_60%] rounded z-10'>
+          <img class="aspect-video origin-left object-cover" src={ event?.image.url }>
+        </div>
+        <div class="flex-[0_0_40%] relative z-20">          
+          <h1 class="font-inria text-7xl -ml-32" transition:name={`event-title-${ event?.id }`}>{event?.title}</h1>
+          <p>Fecha de inicio: {event?.start_date}</p>
+          <p>Dirección: {event?.start_date}</p>
+        </div>
+      </div>
+      <p>{event?.description}</p>
+    </Container>
+  </section>
+</Layout>
+
+<script>
+  import gsap from 'gsap'
+	import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  document.addEventListener("astro:page-load", () => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    let revealContainers = document.querySelectorAll(".reveal")
+
+    revealContainers.forEach((container) => {
+      let image = container.querySelector("img")
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+        }
+      })
+
+      tl.set(container, { autoAlpha: 1 })
+      tl.from(container, {
+        xPercent: -100,
+        duration: 1.5,
+        ease: "Power2.out"
+      })
+      tl.from(image, {
+        xPercent: 100,
+        scale: 1.5,
+        duration: 1.5,
+        autoAlpha: 0,
+        delay: -1.5,
+        ease: "Power2.out"
+      })
+    })
+  })
+
+</script>

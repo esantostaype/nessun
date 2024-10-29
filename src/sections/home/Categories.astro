@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets'
+import RevealUp from '@/components/RevealUp.astro'
+import { apiUrl } from '@/utils'
+import type { Category } from '@/interfaces'
+
+const fetchCategories = async (): Promise<Category[]> => {
+  try {
+    const response = await fetch(`${ apiUrl }/v1/event-categories`)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error("Error fetching categories:", error)
+    return []
+  }
+}
+
+const categories: Category[] = await fetchCategories()
+---
+
+<ul class="reveal-up-wrapper grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-6">
+  { categories.map((category) => (
+    <li class="reveal-up-categories invisible group">
+      <a href="/" class="aspect-[4/3] flex items-center p-8 bg-black overflow-hidden relative rounded">
+        <h2 class="relative z-20 font-inria text-3xl">{ category.title }</h2>
+        <Image width="410" height="302" loading="lazy" decoding="async" src={ category.image } alt={ category.title } class="absolute h-full w-full top-0 left-0 z-10 object-cover opacity-40 group-hover:scale-125 group-hover:opacity-20 transition-all duration-500" />
+      </a>
+    </li>
+  ))}
+</ul>
+
+<script>
+  import gsap from 'gsap'
+	import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+	document.addEventListener("astro:page-load", () => {
+		gsap.registerPlugin(ScrollTrigger)
+		ScrollTrigger.batch(".reveal-up-categories", {
+			onEnter: (batch) => {
+				gsap.fromTo(
+					batch,
+					{ y: 100, autoAlpha: 0 },
+					{
+						duration: 1,
+						y: 0,
+						autoAlpha: 1,
+						ease: "back",
+						stagger: 0.16,
+						overwrite: "auto",
+					}
+				);
+			},
+			start: "top 100%",
+			end: "bottom 0%",
+      once: true
+		})
+	})
+</script>

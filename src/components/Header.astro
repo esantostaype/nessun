@@ -1,0 +1,47 @@
+<header id="header" class="header text-sm fixed top-0 left-0 z-[999] px-8 py-6 flex items-center justify-between w-full transition-all duration-300">
+  <div>
+    <img src="/images/logo.svg" alt="Logo">
+  </div>
+  <nav>
+    <ul class="flex items-center gap-6 uppercase">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">Chi Siamo</a></li>
+      <li><a href="/">Spettacoli</a></li>
+      <li><a href="/">Piano Competition</a></li>
+      <li><a href="/">Prezzi/Abbonamenti</a></li>
+    </ul>
+  </nav>
+  <div>Cercare</div>
+</header>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+  
+    let scrollpos = window.scrollY
+  const header = document.querySelector(".header") as HTMLElement
+  const header_height = header.offsetHeight
+
+  const add_class_on_scroll = () => header.classList.add("onScroll")
+  const remove_class_on_scroll = () => header.classList.remove("onScroll")
+
+  window.addEventListener('scroll', function() { 
+    scrollpos = window.scrollY;
+
+    if (scrollpos >= 50) { add_class_on_scroll() }
+    else { remove_class_on_scroll() }
+
+    console.log(scrollpos)
+  })
+  })
+
+</script>
+
+<style>
+  .header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .onScroll {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+  }
+</style>

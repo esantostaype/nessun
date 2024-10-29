@@ -1,0 +1,23 @@
+---
+import Container from '@/components/Container.astro'
+import Section from '@/components/Section.astro'
+import SectionTitle from '@/components/SectionTitle.astro'
+import Layout from '@/layouts/Layout.astro'
+import Hero from '@/sections/home/Hero.astro'
+import Categories from '@/sections/home/Categories.astro'
+import LatestEvents from '@/sections/home/LatestEvents.astro'
+---
+
+<Layout title="Nessun Dorma">
+	<Hero/>
+	<Container>
+		<Section>
+			<SectionTitle label='Categorie'/>
+			<Categories/>
+		</Section>
+		<Section>
+			<SectionTitle label='Prossimi Spettacoli'/>
+			<LatestEvents/>
+		</Section>
+	</Container>
+</Layout>
