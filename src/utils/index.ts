@@ -1,1 +1,1 @@
-export const apiUrl = 'http://localhost/nessundorma/wp-json'
+export const apiUrl = 'https://dynamicstudio.us/nessundorma/wp-json'
