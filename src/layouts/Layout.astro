@@ -4,6 +4,7 @@ import Header from '@/components/Header.astro'
 import "@fontsource-variable/inter"
 import "@fontsource/inria-serif"
 import Background from '@/components/Background.astro'
+import Footer from '@/components/Footer.astro'
 
 interface Props {
 	title: string
@@ -28,6 +29,7 @@ const { title } = Astro.props
 		<main class="z-20 relative pt-[85px]" id="smooth-content">
 			<slot />
 		</main>
+		<Footer/>
 		<Background/>
 	</body>
 </html>

@@ -1,4 +1,4 @@
-<header id="header" class="header text-sm fixed top-0 left-0 z-[999] px-8 py-6 flex items-center justify-between w-full transition-all duration-300">
+<header class="header border-b border-b-[rgba(255,255,255,0.12)] text-sm fixed top-0 left-0 z-[999] px-8 py-6 flex items-center justify-between w-full transition-all duration-300">
   <div>
     <img src="/images/logo.svg" alt="Logo">
   </div>
@@ -18,28 +18,22 @@
   document.addEventListener("astro:page-load", () => {
   
     let scrollpos = window.scrollY
-  const header = document.querySelector(".header") as HTMLElement
-  const header_height = header.offsetHeight
+    const header = document.querySelector(".header") as HTMLElement
 
-  const add_class_on_scroll = () => header.classList.add("onScroll")
-  const remove_class_on_scroll = () => header.classList.remove("onScroll")
+    const add_class_on_scroll = () => header.classList.add("onScroll")
+    const remove_class_on_scroll = () => header.classList.remove("onScroll")
 
-  window.addEventListener('scroll', function() { 
-    scrollpos = window.scrollY;
+    window.addEventListener('scroll', function() { 
+      scrollpos = window.scrollY;
 
-    if (scrollpos >= 50) { add_class_on_scroll() }
-    else { remove_class_on_scroll() }
-
-    console.log(scrollpos)
-  })
+      if (scrollpos >= 50) { add_class_on_scroll() }
+      else { remove_class_on_scroll() }
+    })
   })
 
 </script>
 
 <style>
-  .header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  }
   .onScroll {
     background-color: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(12px);

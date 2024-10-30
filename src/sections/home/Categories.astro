@@ -3,6 +3,7 @@ import { Image } from 'astro:assets'
 import RevealUp from '@/components/RevealUp.astro'
 import { apiUrl } from '@/utils'
 import type { Category } from '@/interfaces'
+import SectionTitle from '@/components/SectionTitle.astro'
 
 const fetchCategories = async (): Promise<Category[]> => {
   try {
@@ -18,7 +19,8 @@ const fetchCategories = async (): Promise<Category[]> => {
 const categories: Category[] = await fetchCategories()
 ---
 
-<ul class="reveal-up-wrapper grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-6">
+<SectionTitle label='Categorie'/>
+<ul class="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-6">
   { categories.map((category) => (
     <li class="reveal-up-categories invisible group">
       <a href="/" class="aspect-[4/3] flex items-center p-8 bg-black overflow-hidden relative rounded">

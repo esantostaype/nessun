@@ -3,11 +3,13 @@ import { Image } from 'astro:assets'
 import type { Event } from '@/interfaces'
 import { getEvents } from '@/api'
 import { format } from '@formkit/tempo'
+import SectionTitle from '@/components/SectionTitle.astro'
 const events: Event[] = await getEvents()
 ---
 
+<SectionTitle label='Prossimi Spettacoli'/>
 <div class="swiper mySwiper">
-  <div class="swiper-wrapper pt-2">
+  <ul class="swiper-wrapper pt-2">
     {events.map((event) => {
       const numberDay = format(event.startDate, "DD", "it")
       const day = format(event.startDate, "dddd", "it")
@@ -15,7 +17,7 @@ const events: Event[] = await getEvents()
       const hour = format(event.startDate, "HH:mm", "it")
 
       return (
-        <div class="swiper-slide reveal-up-events invisible">
+        <li class="swiper-slide reveal-up-events invisible">
           <a href={`/events/${event.slug}`} class="group">
             <div class="overflow-hidden rounded group-hover:scale-[1.02] transition-all duration-300">
               {
@@ -35,10 +37,10 @@ const events: Event[] = await getEvents()
             <h2 class="relative z-20 font-semibold text-xl leading-tight mb-1">{ event.title }</h2>
             <span class="opacity-50 text-sm">Direttore: { event.direttore }</span>
           </a>
-        </div>
+        </li>
       )
     })}
-  </div>
+  </ul>
 </div>
 
 <style>
