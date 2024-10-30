@@ -15,7 +15,7 @@ export const getEvents = async (): Promise<Event[]> => {
 
 export const getEvent = async ( id: string ): Promise<FullEvent | null> => {
   try {
-    const response = await fetch(`${ apiUrl }/tribe/events/v1/events/${ id }`)
+    const response = await fetch(`${ apiUrl }/tribe/events/v1/events/${ id }?timestamp=${new Date().getTime()}`)
     const data = await response.json()
     return data
   } catch (error) {
@@ -26,7 +26,7 @@ export const getEvent = async ( id: string ): Promise<FullEvent | null> => {
 
 export const getCategories = async (): Promise<Category[]> => {
   try {
-    const response = await fetch(`${ apiUrl }/v1/event-categories`)
+    const response = await fetch(`${ apiUrl }/v1/event-categories?timestamp=${new Date().getTime()}`)
     const data = await response.json()
     return data
   } catch (error) {
