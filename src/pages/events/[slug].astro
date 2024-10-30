@@ -9,7 +9,7 @@ const eventId = events.find(event => event.slug === slug)?.id
 const event = await getEvent( eventId || '' )
 
 export async function getStaticPaths() {
-  const events: Event[] = await getEvents();
+  const events: Event[] = await getEvents()
   return events.map((event) => ({
     params: { slug: event.slug },
     props: { id: event.id }

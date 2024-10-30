@@ -5,6 +5,7 @@ export const getEvents = async (): Promise<Event[]> => {
   try {
     const response = await fetch(`${ apiUrl }/v1/events`)
     const data = await response.json()
+    console.log(data)
     return data
   } catch (error) {
     console.error("Error fetching Events:", error)
