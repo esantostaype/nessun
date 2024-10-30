@@ -19,8 +19,8 @@ const events: Event[] = await getEvents()
           <a href={`/events/${event.slug}`} class="group">
             <div class="overflow-hidden rounded group-hover:scale-[1.02] transition-all duration-300">
               {
-                event.image.url ?
-                <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image.url } alt={ event.title } class="aspect-[3/5] w-full object-cover group-hover:scale-110 transition-all duration-500" />
+                event.image ?
+                <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image } alt={ event.title } class="aspect-[3/5] w-full object-cover group-hover:scale-110 transition-all duration-500" />
                 : ""
               }
             </div>

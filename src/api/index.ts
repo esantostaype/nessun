@@ -3,10 +3,9 @@ import { apiUrl } from '@/utils'
 
 export const getEvents = async (): Promise<Event[]> => {
   try {
-    const response = await fetch(`${ apiUrl }/tribe/events/v1/events?timestamp=${new Date().getTime()}`)
+    const response = await fetch(`${ apiUrl }/v1/events?timestamp=${new Date().getTime()}`)
     const data = await response.json()
-    console.log(data.events)
-    return data.events
+    return data
   } catch (error) {
     console.error("Error fetching Events:", error)
     return []
