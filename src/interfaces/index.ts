@@ -6,7 +6,9 @@ export interface Category {
 export interface Event {
   id: string
   title: string
-  image: string
+  image: {
+    url: string
+  }
   startDate: string
   endDate: string
   venue: string
