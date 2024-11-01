@@ -22,15 +22,15 @@ export async function getStaticPaths() {
   <section class="py-16">
     <Container>
       <div class="flex justify-between items-start">
-        <h1 class="font-inria text-7xl mb-8" transition:name={`event-title-${ event?.id }`}>{ event?.title }</h1>
-        <a href="#" class="mt-4 bg-[rgb(var(--accent))] rounded py-3 px-5 text-nowrap uppercase">Comprar Ticket</a>
+        <h1 class="invisible reveal-left font-inria text-7xl mb-8" transition:name={`event-title-${ event?.id }`}>{ event?.title }</h1>
+        <a href="#" class="invisible reveal-left mt-4 bg-[rgb(var(--accent))] rounded py-3 px-5 text-nowrap uppercase">Comprar Ticket</a>
       </div>
       <div class="relative flex items-start">
-        <div class="flex-[0_0_45%] relative z-20 bg-[rgba(0,0,0,0.6)] backdrop-blur-lg p-12 rounded-xl">
+        <div class="invisible reveal-left flex-[0_0_45%] relative z-20 bg-[rgba(0,0,0,0.6)] backdrop-blur-lg p-12 rounded-xl">
           <div set:html={event?.description}></div>
         </div>
         <div class="flex-[0_0_60%] -ml-[5%] mt-16 rounded-xl z-10 relative">
-          <div class="absolute top-4 right-4 bg-[rgba(0,0,0,0.4)] backdrop-blur-lg p-4 rounded-lg z-20">
+          <div class="invisible reveal-left absolute top-4 right-4 bg-[rgba(0,0,0,0.4)] backdrop-blur-lg p-4 rounded-lg z-20">
             <EventDate startDate={ event?.start_date || '' } />
           </div>
           <div class='aspect-[4/3] reveal invisible relative overflow-hidden'>
@@ -73,6 +73,26 @@ export async function getStaticPaths() {
         delay: -1.5,
         ease: "Power2.out"
       })
+    })
+
+    ScrollTrigger.batch(".reveal-left", {
+      onEnter: (batch) => {
+        gsap.fromTo(
+          batch,
+          { x: -100, autoAlpha: 0 },
+          {
+            duration: 1,
+            x: 0,
+            autoAlpha: 1,
+            ease: "back",
+            stagger: 0.16,
+            overwrite: "auto"
+          }
+        )
+      },
+      start: "top 100%",
+      end: "bottom 0%",
+      once: true
     })
   })
 
