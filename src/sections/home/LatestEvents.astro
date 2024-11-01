@@ -22,7 +22,7 @@ const events: Event[] = await getEvents()
             <div class="overflow-hidden rounded group-hover:scale-[1.02] transition-all duration-300">
               {
                 event.image ?
-                <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image } alt={ event.title } class="aspect-[3/5] w-full object-cover group-hover:scale-110 transition-all duration-500" />
+                <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image } alt={ event.title } class="aspect-[4/3] w-full object-cover group-hover:scale-110 transition-all duration-500" />
                 : ""
               }
             </div>
@@ -35,7 +35,7 @@ const events: Event[] = await getEvents()
               </div>
             </div>
             <h2 class="relative z-20 font-semibold text-xl leading-tight mb-1">{ event.title }</h2>
-            <span class="opacity-50 text-sm">Direttore: { event.direttore }</span>
+            <span class="opacity-50 text-sm">Artista: { event.direttore }</span>
           </a>
         </li>
       )
