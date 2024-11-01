@@ -5,6 +5,9 @@ export default {
 		extend: {
 			fontFamily: {
 				inria: ['"Inria Serif"', 'serif'],
+			},
+			colors: {
+        accent: 'var(--accent)'
 			}
 		},
 	},

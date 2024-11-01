@@ -1,0 +1,23 @@
+---
+import { format } from '@formkit/tempo'
+
+interface Props {
+  startDate: string
+}
+
+const { startDate } = Astro.props
+
+const numberDay = format( startDate, "DD", "it" )
+const day = format( startDate, "dddd", "it" )
+const month = format( startDate, "MMMM", "it" )
+const hour = format( startDate, "HH:mm", "it" )
+---
+
+<div class="flex items-center gap-4">
+  <div class="text-[5rem] leading-none font-inria italic">{ numberDay }</div>
+  <div class="uppercase leading-tight">
+    <div>{ day }</div>
+    <div>{ month }</div>
+    <div>Ore: { hour }</div>
+  </div>
+</div>
