@@ -4,6 +4,7 @@ import Container from '@/components/Container.astro'
 import Layout from '@/layouts/Layout.astro'
 import type { Event } from '@/interfaces'
 import EventDate from '@/components/EventDate.astro';
+import Button from '@/components/Button.astro';
 const { slug } = Astro.params
 const events: Event[] = await getEvents()
 const eventId = events.find(event => event.slug === slug)?.id
@@ -23,14 +24,16 @@ export async function getStaticPaths() {
     <Container>
       <div class="flex justify-between items-start">
         <h1 class="invisible reveal-left font-inria text-7xl mb-8" transition:name={`event-title-${ event?.id }`}>{ event?.title }</h1>
-        <a href="#" class="invisible reveal-left mt-4 bg-[rgb(var(--accent))] rounded py-3 px-5 text-nowrap uppercase">Comprar Ticket</a>
+        <div class="invisible reveal-left">
+          <Button href="#" label="Acquista il Biglietto" />
+        </div>
       </div>
       <div class="relative flex items-start">
-        <div class="invisible reveal-left flex-[0_0_45%] relative z-20 bg-[rgba(0,0,0,0.6)] backdrop-blur-lg p-12 rounded-xl">
+        <div class="invisible reveal-left flex-[0_0_45%] relative z-20 bg-[rgba(255,255,255,0.05)] backdrop-blur-lg p-12 rounded-xl">
           <div set:html={event?.description}></div>
         </div>
         <div class="flex-[0_0_60%] -ml-[5%] mt-16 rounded-xl z-10 relative">
-          <div class="invisible reveal-left absolute top-4 right-4 bg-[rgba(0,0,0,0.4)] backdrop-blur-lg p-4 rounded-lg z-20">
+          <div class="invisible reveal-left absolute top-4 right-4 bg-[rgba(0,0,0,0.6)] backdrop-blur-lg p-4 rounded-lg z-20">
             <EventDate startDate={ event?.start_date || '' } />
           </div>
           <div class='aspect-[4/3] reveal invisible relative overflow-hidden'>

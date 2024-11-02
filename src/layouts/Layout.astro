@@ -36,17 +36,21 @@ const { title } = Astro.props
 </html>
 
 <style is:global>
+	@import "@flaticon/flaticon-uicons/css/all/all";
+
 	:root {
 		--background: #181616;
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+		--accent-50: #fbf4f8;
+    --accent-100: #f9eaf3;
+    --accent-200: #f5d5e8;
+    --accent-300: #edb4d4;
+    --accent-400: #e185b7;
+    --accent-500: #d05092;
+    --accent-600: #c1417d;
+    --accent-700: #a63064;
+    --accent-800: #8a2a53;
+    --accent-900: #732848;
+    --accent-950: #451227;
 	}
 	html {
 		font-family: 'Inria Serif', serif;
