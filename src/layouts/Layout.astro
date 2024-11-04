@@ -8,9 +8,11 @@ import Footer from '@/components/Footer.astro'
 
 interface Props {
 	title: string
+	description?: string
+	image?: string
 }
 
-const { title } = Astro.props
+const { title, description, image } = Astro.props
 ---
 
 <!doctype html>
@@ -23,6 +25,15 @@ const { title } = Astro.props
 		<meta name="generator" content={ Astro.generator } />
 		<meta name='robots' content='noindex, nofollow' />
 		<title>{ title }</title>
+		<meta property="og:title" content={ title }>
+		<meta property="og:type" content="website">
+		<meta property="og:image" content={ image || '/images/nessun-dorma.webp' }>
+		<meta property="og:url" content="https://www.nessundormaoleggio.it/">
+		<meta property="og:description" content={ description || 'Il Teatro Civico di Oleggio, gestito dall’associazione Nessun Dorma, è un centro culturale e artistico che ospita una varietà di spettacoli teatrali e musicali, promuovendo eventi per il pubblico di tutte le età, inclusi i giovani con biglietti a prezzi agevolati. Situato in Via Roma a Oleggio, il teatro è anche sede del concorso pianistico internazionale, il "Piano Award Città di Oleggio". Offre una programmazione ricca e diversificata, con abbonamenti e vendite di biglietti accessibili anche online.' }>
+		<meta property="og:image:url" content={ image || '/images/nessun-dorma.webp' }>
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+		<meta property="og:image:alt" content={ title }>
 		<ViewTransitions />
 	</head>
 	<body id="smooth-wrapper">

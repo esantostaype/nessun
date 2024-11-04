@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 }
 ---
 
-<Layout title="Nessun Dorma">
+<Layout title={`${ slug } | Nessun Dorma`}>
   <section class="py-16">
     <Container>
       <h1 class="font-inria text-7xl mb-8 capitalize reveal-left invisible">{ slug }</h1>

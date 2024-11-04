@@ -9,7 +9,7 @@ import Container from '@/components/Container.astro'
 const events = await getEvents()
 ---
 
-<Layout title="Spettacoli">
+<Layout title="Spettacoli | Nessun Dorma">
   <LayoutInterior>
     <Container>
 			<Title label='Spettacoli'/>
@@ -18,7 +18,7 @@ const events = await getEvents()
     
           return (
             <li class="swiper-slide reveal-up-events invisible">
-              <a href={`/events/${event.slug}`} class="group">
+              <a href={`/spettacoli/${event.slug}`} class="group">
                 <div class="overflow-hidden rounded-lg group-hover:scale-[1.02] transition-all duration-300">
                   {
                     event.image ?
