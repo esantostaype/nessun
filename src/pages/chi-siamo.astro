@@ -1,9 +1,14 @@
 ---
-import Container from '@/components/Container.astro'
 import Layout from '@/layouts/Layout.astro'
+import LayoutInterior from '@/layouts/LayoutInterior.astro'
+import Title from '@/components/Title.astro'
+import Container from '@/components/Container.astro'
 ---
 
-<Layout title="Nessun Dorma">
-	<Container>
-	</Container>
+<Layout title="Chi Siamo">
+  <LayoutInterior>
+		<Container>
+			<Title label='Chi Siamo'>
+		</Container>
+	</LayoutInterior>
 </Layout>

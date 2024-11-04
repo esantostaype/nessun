@@ -1,16 +1,18 @@
 ---
-import { getEvents } from '@/api'
-import Container from '@/components/Container.astro'
-import Layout from '@/layouts/Layout.astro'
-import EventDate from '@/components/EventDate.astro'
 import { Image } from 'astro:assets'
+import { getEvents } from '@/api'
+import Layout from '@/layouts/Layout.astro'
+import LayoutInterior from '@/layouts/LayoutInterior.astro'
+import EventDate from '@/components/EventDate.astro'
+import Title from '@/components/Title.astro'
+import Container from '@/components/Container.astro'
 const events = await getEvents()
 ---
 
-<Layout title="Nessun Dorma">
-  <section class="py-16">
+<Layout title="Spettacoli">
+  <LayoutInterior>
     <Container>
-      <h1 class="font-inria text-7xl mb-8 capitalize reveal-left invisible">Spettacoli</h1>
+			<Title label='Spettacoli'/>
       <ul class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-12">
         { events.map((event) => {
     
@@ -35,7 +37,7 @@ const events = await getEvents()
         })}
       </ul>
     </Container>
-  </section>
+  </LayoutInterior>
 </Layout>
 
 <script>
