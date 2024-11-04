@@ -2,13 +2,13 @@
 import { getEvent, getEvents } from '@/api';
 import Container from '@/components/Container.astro'
 import Layout from '@/layouts/Layout.astro'
-import type { Event } from '@/interfaces'
+import type { Event, FullEvent } from '@/interfaces'
 import EventDate from '@/components/EventDate.astro';
 import Button from '@/components/Button.astro';
 const { slug } = Astro.params
 const events: Event[] = await getEvents()
 const eventId = events.find(event => event.slug === slug)?.id
-const event = await getEvent( eventId || '' )
+const event = await getEvent( `${ eventId }` || '' )
 
 export async function getStaticPaths() {
   const events: Event[] = await getEvents()
@@ -33,11 +33,11 @@ export async function getStaticPaths() {
           <div set:html={event?.description}></div>
         </div>
         <div class="flex-[0_0_60%] -ml-[5%] mt-16 rounded-xl z-10 relative">
+          <div class='aspect-[4/3] reveal-left invisible relative overflow-hidden'>
+            <img class="aspect-[4/3] origin-left object-cover rounded-xl" src={ event?.image.url }>
+          </div>
           <div class="invisible reveal-left absolute top-4 right-4 bg-[rgba(0,0,0,0.6)] backdrop-blur-lg p-4 rounded-lg z-20">
             <EventDate startDate={ event?.start_date || '' } />
-          </div>
-          <div class='aspect-[4/3] reveal invisible relative overflow-hidden'>
-            <img class="aspect-[4/3] origin-left object-cover rounded-xl" src={ event?.image.url }>
           </div>
         </div>
       </div>

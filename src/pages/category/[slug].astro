@@ -1,0 +1,99 @@
+---
+import { getCategory, getCategories } from '@/api'
+import Container from '@/components/Container.astro'
+import Layout from '@/layouts/Layout.astro'
+import type { Category } from '@/interfaces'
+import EventDate from '@/components/EventDate.astro'
+import { Image } from 'astro:assets';
+const { slug } = Astro.params
+const events = await getCategory( slug || '' )
+
+export async function getStaticPaths() {
+  const categories: Category[] = await getCategories()
+  return categories.map((event) => ({
+    params: { slug: event.slug },
+    props: { id: event.id }
+  }))
+}
+---
+
+<Layout title="Nessun Dorma">
+  <section class="py-16">
+    <Container>
+      <h1 class="font-inria text-7xl mb-8 capitalize reveal-left invisible">{ slug }</h1>
+      <ul class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-12">
+        { events.map((event) => {
+    
+          return (
+            <li class="swiper-slide reveal-up-events invisible">
+              <a href={`/events/${event.slug}`} class="group">
+                <div class="overflow-hidden rounded-lg group-hover:scale-[1.02] transition-all duration-300">
+                  {
+                    event.image ?
+                    <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image } alt={ event.title } class="aspect-[4/3] w-full object-cover group-hover:scale-110 transition-all duration-500" />
+                    : ""
+                  }
+                </div>
+                <div class="py-1">
+                  <EventDate startDate={ event.startDate } />
+                </div>
+                <h2 class="relative z-20 font-semibold text-xl leading-tight mb-1">{ event.title }</h2>
+                <div class="opacity-50 text-sm leading-tight">Artista: { event.direttore }</div>
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    </Container>
+  </section>
+</Layout>
+
+<script>
+  import gsap from 'gsap'
+	import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  document.addEventListener("astro:page-load", () => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    ScrollTrigger.batch(".reveal-up-events", {
+      onEnter: (batch) => {
+        gsap.fromTo(
+          batch,
+          { y: 100, autoAlpha: 0 },
+          {
+            duration: 1,
+            y: 0,
+            autoAlpha: 1,
+            ease: "back",
+            stagger: 0.16,
+            overwrite: "auto"
+          }
+        )
+      },
+      start: "top 100%",
+      end: "bottom 0%",
+      once: true
+    })
+
+    ScrollTrigger.batch(".reveal-left", {
+      onEnter: (batch) => {
+        gsap.fromTo(
+          batch,
+          { x: -100, autoAlpha: 0 },
+          {
+            duration: 1,
+            x: 0,
+            autoAlpha: 1,
+            ease: "back",
+            stagger: 0.16,
+            overwrite: "auto"
+          }
+        )
+      },
+      start: "top 100%",
+      end: "bottom 0%",
+      once: true
+    })
+  })
+
+</script>

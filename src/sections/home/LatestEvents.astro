@@ -4,7 +4,7 @@ import type { Event } from '@/interfaces'
 import { getEvents } from '@/api'
 import SectionTitle from '@/components/SectionTitle.astro'
 import EventDate from '@/components/EventDate.astro'
-const events: Event[] = await getEvents()
+const events: Event[] = ( await getEvents()).slice( 0, 8 )
 ---
 
 <SectionTitle label='Prossimi Spettacoli'/>

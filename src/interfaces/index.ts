@@ -1,18 +1,31 @@
 export interface Category {
+  id: number
+  count: number
+  description: string
   title: string
+  slug: string
+  taxonomy: string
+  parent: number
+  meta: any[]
   image: string
+  url: string
+}
+
+export interface CategoryImage {
+  url: string
+  alt: string
+  title: string
 }
 
 export interface Event {
-  id: string
-  title: string
+  id: number
   image: string
-  startDate: string
-  endDate: string
-  venue: string
-  address: string
+  author: string
   direttore: string
+  title: string
+  description: string
   slug: string
+  startDate: string
 }
 
 export interface FullEvent {
@@ -31,7 +44,7 @@ export interface FullEvent {
   description: string
   excerpt: string
   slug: string
-  image: Image
+  image: EventImage
   all_day: boolean
   start_date: string
   start_date_details: StartDateDetails
@@ -58,7 +71,7 @@ export interface FullEvent {
   json_ld: JsonLd2
 }
 
-export interface Image {
+export interface EventImage {
   url: string
   id: number
   extension: string
