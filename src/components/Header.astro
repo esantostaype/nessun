@@ -18,6 +18,8 @@ const menu = [
     "path": "/prezzi-abbonamenti"
   }
 ]
+
+const isActive = ( path: string ) => currentPath === path || ( path === '/spettacoli' && currentPath.startsWith('/spettacoli'))
 ---
 <header class="header border-b border-b-[rgba(255,255,255,0.12)] fixed top-0 left-0 z-[999] px-8 flex items-center justify-between w-full transition-all duration-300">
   <a href="/">
@@ -27,7 +29,7 @@ const menu = [
     <ul class="flex items-center gap-6 uppercase">
       { menu.map(( item ) => (
         <li>
-          <a href={ item.path } class={`block py-8 -mb-[1px] ${ currentPath === item.path ? 'border-b-white border-b' : 'border-b-transparent border-b'}`}>
+          <a href={ item.path } class={`block py-8 -mb-[1px] ${ isActive( item.path ) ? 'border-b-white border-b' : 'border-b-transparent border-b'}`}>
             { item.label }
           </a>
         </li>
