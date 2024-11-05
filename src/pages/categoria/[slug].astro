@@ -5,6 +5,8 @@ import Layout from '@/layouts/Layout.astro'
 import type { Category } from '@/interfaces'
 import EventDate from '@/components/EventDate.astro'
 import { Image } from 'astro:assets';
+import Categories from '@/components/Categories.astro'
+import Title from '@/components/Title.astro'
 const { slug } = Astro.params
 const events = await getCategory( slug || '' )
 
@@ -20,30 +22,37 @@ export async function getStaticPaths() {
 <Layout title={`${ slug } | Nessun Dorma`}>
   <section class="py-16">
     <Container>
-      <h1 class="font-inria text-7xl mb-8 capitalize reveal-left invisible">{ slug }</h1>
-      <ul class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-12">
-        { events.map((event) => {
-    
-          return (
-            <li class="swiper-slide reveal-up-events invisible">
-              <a href={`/events/${event.slug}`} class="group">
-                <div class="overflow-hidden rounded-lg group-hover:scale-[1.02] transition-all duration-300">
-                  {
-                    event.image ?
-                    <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image } alt={ event.title } class="aspect-[4/3] w-full object-cover group-hover:scale-110 transition-all duration-500" />
-                    : ""
-                  }
-                </div>
-                <div class="py-1">
-                  <EventDate startDate={ event.startDate } />
-                </div>
-                <h2 class="relative z-20 font-semibold text-xl leading-tight mb-1">{ event.title }</h2>
-                <div class="opacity-50 text-sm leading-tight">Artista: { event.direttore }</div>
-              </a>
-            </li>
-          )
-        })}
-      </ul>
+			<Title label={ slug }/>
+      <div class="flex items-start gap-12">
+        <div class="flex-[1]">
+          <Categories/>
+        </div>
+        <div class="flex-[4]">
+          <ul class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-12">
+            { events.map((event) => {
+        
+              return (
+                <li class="swiper-slide reveal-up-events invisible">
+                  <a href={`/spettacoli/${event.slug}`} class="group">
+                    <div class="overflow-hidden rounded-lg group-hover:scale-[1.02] transition-all duration-300">
+                      {
+                        event.image ?
+                        <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image } alt={ event.title } class="aspect-[4/3] w-full object-cover group-hover:scale-110 transition-all duration-500" />
+                        : ""
+                      }
+                    </div>
+                    <div class="py-1">
+                      <EventDate startDate={ event.startDate } />
+                    </div>
+                    <h2 class="relative z-20 font-semibold text-xl leading-tight mb-1">{ event.title }</h2>
+                    <div class="opacity-50 text-sm leading-tight">Artista: { event.direttore }</div>
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      </div>
     </Container>
   </section>
 </Layout>

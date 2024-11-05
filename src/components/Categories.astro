@@ -1,0 +1,33 @@
+---
+import { getCategories } from "@/api"
+import type { Category } from "@/interfaces"
+const currentPath = Astro.url.pathname
+
+const categories: Category[] = await getCategories()
+---
+
+<h3 class="text-xl font-inria uppercase mb-4">Categorie</h3>
+<ul class="flex flex-col gap-4">
+  <li>
+    <a href="/spettacoli" class={`flex gap-2 ${ currentPath === '/spettacoli' ? 'text-white' : 'text-gray-400'}`}>
+      <span class={`flex gap-2 rounded border-2 h-6 w-6 items-center justify-center ${ currentPath === '/spettacoli' ? 'border-white' : 'border-gray-400'}`}>
+        <svg viewBox="0 0 32 32" class={`${ currentPath === '/spettacoli' ? 'fill-white' : 'fill-gray-400'}`} width="12px">
+          <path d="M11,27.7c-1.4,0-2.7-.5-3.6-1.5L.9,19.8c-1.3-1.3-1.3-3.3,0-4.6,0,0,0,0,0,0h0c1.3-1.3,3.3-1.3,4.6,0l5.5,5.5,15.5-15.5c1.3-1.3,3.3-1.3,4.6 0h0c1.3,1.3,1.3,3.3,0,4.6,0,0,0,0,0,0L14.6,26.2c-1,1-2.3,1.5-3.6,1.5Z"/>
+        </svg>
+      </span>
+      Tutto
+    </a>
+  </li>
+  { categories.map((category) => (
+    <li>
+      <a href={`/categoria/${ category.slug }`} class={`flex gap-2 ${ currentPath === `/categoria/${ category.slug }` ? 'text-white' : 'text-gray-400'}`}>
+        <span class={`flex gap-2 rounded border-2 h-6 w-6 items-center justify-center ${ currentPath === `/categoria/${ category.slug }` ? 'border-white' : 'border-gray-400'}`}>
+          <svg viewBox="0 0 32 32" class={`${ currentPath === `/categoria/${ category.slug }` ? 'fill-white' : 'fill-gray-400'}`} width="12px">
+            <path d="M11,27.7c-1.4,0-2.7-.5-3.6-1.5L.9,19.8c-1.3-1.3-1.3-3.3,0-4.6,0,0,0,0,0,0h0c1.3-1.3,3.3-1.3,4.6,0l5.5,5.5,15.5-15.5c1.3-1.3,3.3-1.3,4.6 0h0c1.3,1.3,1.3,3.3,0,4.6,0,0,0,0,0,0L14.6,26.2c-1,1-2.3,1.5-3.6,1.5Z"/>
+          </svg>
+        </span>
+        { category.title }
+      </a>
+    </li>
+  ))}
+</ul>

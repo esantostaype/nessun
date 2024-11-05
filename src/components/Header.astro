@@ -1,13 +1,37 @@
-<header class="header border-b border-b-[rgba(255,255,255,0.12)] fixed top-0 left-0 z-[999] px-8 py-6 flex items-center justify-between w-full transition-all duration-300">
-  <div>
+---
+const currentPath = Astro.url.pathname
+const menu = [
+  {
+    "label": "Home",
+    "path": "/"
+  },
+  {
+    "label": "Chi Siamo",
+    "path": "/chi-siamo"
+  },
+  {
+    "label": "Spettacoli",
+    "path": "/spettacoli"
+  },
+  {
+    "label": "Prezzi/Abbonamenti",
+    "path": "/prezzi-abbonamenti"
+  }
+]
+---
+<header class="header border-b border-b-[rgba(255,255,255,0.12)] fixed top-0 left-0 z-[999] px-8 flex items-center justify-between w-full transition-all duration-300">
+  <a href="/">
     <img src="/images/logo.svg" alt="Logo">
-  </div>
+  </a>
   <nav>
     <ul class="flex items-center gap-6 uppercase">
-      <li><a href="/">Home</a></li>
-      <li><a href="/chi-siamo">Chi Siamo</a></li>
-      <li><a href="/spettacoli">Spettacoli</a></li>
-      <li><a href="/">Prezzi/Abbonamenti</a></li>
+      { menu.map(( item ) => (
+        <li>
+          <a href={ item.path } class={`block py-8 -mb-[1px] ${ currentPath === item.path ? 'border-b-white border-b' : 'border-b-transparent border-b'}`}>
+            { item.label }
+          </a>
+        </li>
+      ))}
     </ul>
   </nav>
   <div>Cercare</div>

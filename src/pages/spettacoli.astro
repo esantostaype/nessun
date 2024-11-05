@@ -6,6 +6,7 @@ import LayoutInterior from '@/layouts/LayoutInterior.astro'
 import EventDate from '@/components/EventDate.astro'
 import Title from '@/components/Title.astro'
 import Container from '@/components/Container.astro'
+import Categories from '@/components/Categories.astro'
 const events = await getEvents()
 ---
 
@@ -13,29 +14,36 @@ const events = await getEvents()
   <LayoutInterior>
     <Container>
 			<Title label='Spettacoli'/>
-      <ul class="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-12">
-        { events.map((event) => {
-    
-          return (
-            <li class="swiper-slide reveal-up-events invisible">
-              <a href={`/spettacoli/${event.slug}`} class="group">
-                <div class="overflow-hidden rounded-lg group-hover:scale-[1.02] transition-all duration-300">
-                  {
-                    event.image ?
-                    <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image } alt={ event.title } class="aspect-[4/3] w-full object-cover group-hover:scale-110 transition-all duration-500" />
-                    : ""
-                  }
-                </div>
-                <div class="py-1">
-                  <EventDate startDate={ event.startDate } />
-                </div>
-                <h2 class="relative z-20 font-semibold text-xl leading-tight mb-1">{ event.title }</h2>
-                <div class="opacity-50 text-sm leading-tight">Artista: { event.direttore }</div>
-              </a>
-            </li>
-          )
-        })}
-      </ul>
+      <div class="flex items-start gap-12">
+        <div class="flex-[1]">
+          <Categories/>
+        </div>
+        <div class="flex-[4]">
+          <ul class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-12">
+            { events.map((event) => {
+        
+              return (
+                <li class="swiper-slide reveal-up-events invisible">
+                  <a href={`/spettacoli/${event.slug}`} class="group">
+                    <div class="overflow-hidden rounded-lg group-hover:scale-[1.02] transition-all duration-300">
+                      {
+                        event.image ?
+                        <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image } alt={ event.title } class="aspect-[4/3] w-full object-cover group-hover:scale-110 transition-all duration-500" />
+                        : ""
+                      }
+                    </div>
+                    <div class="py-1">
+                      <EventDate startDate={ event.startDate } />
+                    </div>
+                    <h2 class="relative z-20 font-semibold text-xl leading-tight mb-1">{ event.title }</h2>
+                    <div class="opacity-50 text-sm leading-tight">Artista: { event.direttore }</div>
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      </div>
     </Container>
   </LayoutInterior>
 </Layout>
@@ -55,26 +63,6 @@ const events = await getEvents()
           {
             duration: 1,
             y: 0,
-            autoAlpha: 1,
-            ease: "back",
-            stagger: 0.16,
-            overwrite: "auto"
-          }
-        )
-      },
-      start: "top 100%",
-      end: "bottom 0%",
-      once: true
-    })
-
-    ScrollTrigger.batch(".reveal-left", {
-      onEnter: (batch) => {
-        gsap.fromTo(
-          batch,
-          { x: -100, autoAlpha: 0 },
-          {
-            duration: 1,
-            x: 0,
             autoAlpha: 1,
             ease: "back",
             stagger: 0.16,

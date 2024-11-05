@@ -47,8 +47,6 @@ const { title, description, image } = Astro.props
 </html>
 
 <style is:global>
-	@import "@flaticon/flaticon-uicons/css/all/all";
-
 	:root {
 		--background: #181616;
 		--accent-50: #fbf4f8;
@@ -76,4 +74,57 @@ const { title, description, image } = Astro.props
 </style>
 
 <script>
+  import gsap from 'gsap'
+	import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  document.addEventListener("astro:page-load", () => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    ScrollTrigger.batch(".reveal-left", {
+      onEnter: (batch) => {
+        gsap.fromTo(
+          batch,
+          { x: -100, autoAlpha: 0 },
+          {
+            duration: 1,
+            x: 0,
+            autoAlpha: 1,
+            ease: "back",
+            stagger: 0.16,
+            overwrite: "auto"
+          }
+        )
+      },
+      start: "top 100%",
+      end: "bottom 0%",
+      once: true
+    })
+
+		let revealContainers = document.querySelectorAll(".reveal")
+
+		revealContainers.forEach((container) => {
+			let image = container.querySelector("img")
+			let tl = gsap.timeline({
+				scrollTrigger: {
+					trigger: container,
+				}
+			})
+
+			tl.set(container, { autoAlpha: 1 })
+			tl.from(container, {
+				xPercent: -100,
+				duration: 1.5,
+				ease: "Power2.out"
+			})
+			tl.from(image, {
+				xPercent: 100,
+				scale: 1.5,
+				duration: 1.5,
+				autoAlpha: 0,
+				delay: -1.5,
+				ease: "Power2.out"
+			})
+		})
+  })
+
 </script>

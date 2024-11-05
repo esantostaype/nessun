@@ -33,7 +33,7 @@ export async function getStaticPaths() {
           <div set:html={event?.description}></div>
         </div>
         <div class="flex-[0_0_60%] -ml-[5%] mt-16 rounded-xl z-10 relative">
-          <div class='aspect-[4/3] reveal-left invisible relative overflow-hidden'>
+          <div class='aspect-[4/3] reveal invisible relative overflow-hidden'>
             <img class="aspect-[4/3] origin-left object-cover rounded-xl" src={ event?.image.url }>
           </div>
           <div class="invisible reveal-left absolute top-4 right-4 bg-[rgba(0,0,0,0.6)] backdrop-blur-lg p-4 rounded-lg z-20">
@@ -44,59 +44,3 @@ export async function getStaticPaths() {
     </Container>
   </section>
 </Layout>
-
-<script>
-  import gsap from 'gsap'
-	import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-  document.addEventListener("astro:page-load", () => {
-    gsap.registerPlugin(ScrollTrigger)
-
-    let revealContainers = document.querySelectorAll(".reveal")
-
-    revealContainers.forEach((container) => {
-      let image = container.querySelector("img")
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container,
-        }
-      })
-
-      tl.set(container, { autoAlpha: 1 })
-      tl.from(container, {
-        xPercent: -100,
-        duration: 1.5,
-        ease: "Power2.out"
-      })
-      tl.from(image, {
-        xPercent: 100,
-        scale: 1.5,
-        duration: 1.5,
-        autoAlpha: 0,
-        delay: -1.5,
-        ease: "Power2.out"
-      })
-    })
-
-    ScrollTrigger.batch(".reveal-left", {
-      onEnter: (batch) => {
-        gsap.fromTo(
-          batch,
-          { x: -100, autoAlpha: 0 },
-          {
-            duration: 1,
-            x: 0,
-            autoAlpha: 1,
-            ease: "back",
-            stagger: 0.16,
-            overwrite: "auto"
-          }
-        )
-      },
-      start: "top 100%",
-      end: "bottom 0%",
-      once: true
-    })
-  })
-
-</script>
