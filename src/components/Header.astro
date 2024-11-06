@@ -29,7 +29,7 @@ const isActive = ( path: string ) => currentPath === path || ( path === '/spetta
     <ul class="flex items-center gap-6 uppercase">
       { menu.map(( item ) => (
         <li>
-          <a href={ item.path } class={`block py-8 -mb-[1px] ${ isActive( item.path ) ? 'border-b-white border-b' : 'border-b-transparent border-b'}`}>
+          <a href={ item.path } class={`block py-8 -mb-[1px] ${ currentPath === item.path ? 'border-b-white border-b' : 'border-b-transparent border-b'}`}>
             { item.label }
           </a>
         </li>

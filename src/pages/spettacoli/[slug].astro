@@ -5,6 +5,7 @@ import Layout from '@/layouts/Layout.astro'
 import type { Event } from '@/interfaces'
 import EventDate from '@/components/EventDate.astro'
 import Button from '@/components/Button.astro'
+import { Image } from 'astro:assets'
 const { slug } = Astro.params
 const events: Event[] = await getEvents()
 const eventId = events.find(event => event.slug === slug)?.id
@@ -23,7 +24,7 @@ export async function getStaticPaths() {
   <section class="py-16">
     <Container>
       <div class="flex justify-between items-start">
-        <h1 class="invisible reveal-left font-inria text-7xl mb-8" transition:name={`event-title-${ event?.id }`}>{ event?.title }</h1>
+        <h1 class="invisible reveal-left font-inria text-7xl mb-8">{ event?.title }</h1>
         <div class="invisible reveal-left">
           <Button href="#" label="Acquista il Biglietto" />
         </div>
@@ -34,7 +35,7 @@ export async function getStaticPaths() {
         </div>
         <div class="flex-[0_0_60%] -ml-[5%] mt-16 rounded-xl z-10 relative">
           <div class='aspect-[4/3] reveal invisible relative overflow-hidden'>
-            <img class="aspect-[4/3] origin-left object-cover rounded-xl" src={ event?.image.url }>
+            <Image width="640" height="480" alt={ event?.title || "Nessun Dorma" } class="aspect-[4/3] origin-left object-cover rounded-xl" src={ event?.image.url || "/images/nessun-dorma.webp" }>
           </div>
           <div class="invisible reveal-left absolute top-4 right-4 bg-[rgba(0,0,0,0.6)] backdrop-blur-lg p-4 rounded-lg z-20">
             <EventDate startDate={ event?.start_date || '' } />

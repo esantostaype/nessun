@@ -1,15 +1,42 @@
 ---
+import { Image } from 'astro:assets'
 import Layout from '@/layouts/Layout.astro'
 import LayoutInterior from '@/layouts/LayoutInterior.astro'
 import Title from '@/components/Title.astro'
 import Container from '@/components/Container.astro'
+import SectionTitle from '@/components/SectionTitle.astro'
+import Map from '@/components/Map.astro'
 ---
 
 <Layout title="Chi Siamo | Nessun Dorma">
   <LayoutInterior>
 		<Container>
-			<Title label='Chi Siamo'/>
-			<div></div>
+			<h1 class="invisible reveal-left font-inria text-7xl mb-8">Chi Siamo</h1>
+			<div class="flex gap-12 mb-16">
+				<div class="reveal invisible relative overflow-hidden flex-[0_0_30%] z-10">
+					<Image width="300" height="300" alt="Andrea Baldassini" src="/images/vicepresidente.webp" class="w-full rounded-lg overflow-hidden"/>
+				</div>
+				<div class="flex-[0_0_80%] -ml-[10%] mt-16 rounded-xl z-20 relative invisible reveal-left bg-[rgba(255,255,255,0.05)] backdrop-blur-lg p-12">
+					<div class="mb-4">
+						<h2 class="text-3xl">Andrea Baldassini</h2>
+						<span class="uppercase text-lg">Sindaco</span>
+					</div>
+					<p>É con grande emozione che presento, per la prima volta in qualità di Sindaco, il calendario del nostro Teatro Civico che in questi anni ha vissuto un vero e proprio rilancio della propria attività.</p>
+					<p>La nuova stagione di prosa del Teatro Civico di Oleggio si conferma all’insegna della qualità portata sul nostro palco da testi importanti, interpretati e diretti da grandi attori e compagnie professionali, sempre in collaborazione con la Fondazione Piemonte dal Vivo di Torino.</p>
+					<p>Per la stagione 2019/2020 approdano infatti ad Oleggio alcune tra le migliori produzioni italiane che per qualità e varietà continueranno a sorprendere e incuriosire il pubblico e che da ormai dieci anni arricchiscono l’offerta culturale della nostra Città.</p>
+				</div>
+			</div>
+			<SectionTitle label='Dove siamo'/>
+			<div class="flex gap-12">
+				<div>
+					<h3 class="text-2xl mb-4">Teatro Civico di Oleggio</h3>
+					<p>Via Roma, 43, 28047 Oleggio,<br>Novara, Italia</p>
+					<p>Tel. 0321 91183</p>
+				</div>
+				<div class="flex-1 rounded-lg overflow-hidden">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2791.649195817157!2d8.631792876724726!3d45.597596424527566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47866712a31f50b9%3A0x65772f9f678a72be!2sVia%20Roma%2C%2043%2C%2028047%20Oleggio%20NO%2C%20Italia!5e0!3m2!1ses!2spe!4v1730909419894!5m2!1ses!2spe" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+			</div>
 		</Container>
 	</LayoutInterior>
 </Layout>

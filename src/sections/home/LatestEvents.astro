@@ -18,7 +18,7 @@ const events: Event[] = ( await getEvents()).slice( 0, 8 )
             <div class="overflow-hidden rounded-lg group-hover:scale-[1.02] transition-all duration-300">
               {
                 event.image ?
-                <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image } alt={ event.title } class="aspect-[4/3] w-full object-cover group-hover:scale-110 transition-all duration-500" />
+                <Image width="410" height="302" loading="lazy" decoding="async" src={ event.image || "/images/nessun-dorma.webp" } alt={ event.title } class="aspect-[4/3] w-full object-cover group-hover:scale-110 transition-all duration-500" />
                 : ""
               }
             </div>
