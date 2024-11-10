@@ -1,4 +1,6 @@
 ---
+import Search from "./Search"
+
 const currentPath = Astro.url.pathname
 const menu = [
   {
@@ -21,11 +23,11 @@ const menu = [
 
 const isActive = ( path: string ) => currentPath === path || ( path === '/spettacoli' && currentPath.startsWith('/spettacoli'))
 ---
-<header class="header border-b border-b-[rgba(255,255,255,0.12)] fixed top-0 left-0 z-[999] px-8 flex items-center justify-between w-full transition-all duration-300">
-  <a href="/">
+<header class="header border-b border-b-[rgba(255,255,255,0.12)] fixed top-0 left-0 z-[999] px-4 md:px-8 flex items-center justify-between w-full transition-all duration-300">
+  <a href="/" class="block py-4 max-w-48 md:max-w-full">
     <img src="/images/logo.svg" alt="Logo">
   </a>
-  <nav>
+  <nav class="hidden lg:block">
     <ul class="flex items-center gap-6 uppercase">
       { menu.map(( item ) => (
         <li>
@@ -36,7 +38,7 @@ const isActive = ( path: string ) => currentPath === path || ( path === '/spetta
       ))}
     </ul>
   </nav>
-  <div>Cercare</div>
+  <div><Search client:load/></div>
 </header>
 
 <script>

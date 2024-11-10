@@ -20,12 +20,28 @@ export interface CategoryImage {
 export interface Event {
   id: number
   image: string
+  organizer?: Organizer[]
   author: string
-  direttore: string
+  artista: string
   title: string
   description: string
   slug: string
   startDate: string
+  costo?: Price
+}
+
+export interface Organizer {
+  id: string
+  name: string
+  phone: string
+  email: string
+  website: string
+}
+
+export interface Price {
+  interi: string
+  ridotti: string
+  ridotti_over_65: string
 }
 
 export interface FullEvent {
@@ -67,8 +83,10 @@ export interface FullEvent {
   categories: Category[]
   tags: any[]
   venue: Venue
-  organizer: any[]
+  organizer: Organizer[]
   json_ld: JsonLd2
+  artista?: string
+  costo?: Price
 }
 
 export interface EventImage {

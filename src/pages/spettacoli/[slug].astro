@@ -30,12 +30,38 @@ export async function getStaticPaths() {
         </div>
       </div>
       <div class="relative flex items-start">
-        <div class="invisible reveal-left flex-[0_0_45%] relative z-20 bg-[rgba(255,255,255,0.05)] backdrop-blur-lg p-12 rounded-xl">
-          <div set:html={event?.description}></div>
+        <div class="flex-[0_0_45%] relative z-20">
+          <div class="bg-[rgba(255,255,255,0.06)] backdrop-blur-lg p-12 rounded-t-xl w-full relative">
+            <div set:html={event?.description}></div>
+          </div>
+          <div class="bg-[rgba(255,255,255,0.12)] backdrop-blur-lg py-4 px-12 rounded-b-xl w-full relative">
+            <div class="uppercase font-bold">Artista: { event?.artista || "-" }</div>
+          </div>
+          <div class="mt-4">
+            <h3 class="mb-2 text-lg uppercase">Costo:</h3>
+            <div class="relative overflow-x-auto shadow-md rounded inline-block">
+              <table class="text-left w-auto">
+                <thead class="text-shark200 uppercase bg-shark800 ">
+                  <tr>
+                    <th class="px-6 py-3">Interi</th>
+                    <th class="px-6 py-3">Ridotti</th>
+                    <th class="px-6 py-3">Ridotti</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b bg-shark900 border-shark800 last:border-none">
+                    <td class="px-6 py-4">€ { event?.costo?.interi ? `${ event.costo?.interi }.00` : '0.00' }</td>
+                    <td class="px-6 py-4">€ { event?.costo?.interi ? `${ event.costo?.ridotti }.00` : '0.00' }</td>
+                    <td class="px-6 py-4">€ { event?.costo?.interi ? `${ event.costo?.ridotti_over_65 }.00` : '0.00' }</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
         <div class="flex-[0_0_60%] -ml-[5%] mt-16 rounded-xl z-10 relative">
           <div class='aspect-[4/3] reveal invisible relative overflow-hidden'>
-            <Image width="640" height="480" alt={ event?.title || "Nessun Dorma" } class="aspect-[4/3] origin-left object-cover rounded-xl" src={ event?.image.url || "/images/nessun-dorma.webp" }>
+            <Image width="640" height="480" alt={ event?.title || "Nessun Dorma" } class="aspect-[4/3] origin-left object-cover rounded-xl w-full" src={ event?.image.url || "/images/nessun-dorma.webp" }>
           </div>
           <div class="invisible reveal-left absolute top-4 right-4 bg-[rgba(0,0,0,0.6)] backdrop-blur-lg p-4 rounded-lg z-20">
             <EventDate startDate={ event?.start_date || '' } />

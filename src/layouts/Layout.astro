@@ -38,7 +38,7 @@ const { title, description, image } = Astro.props
 	</head>
 	<body id="smooth-wrapper">
 		<Header/>
-		<main class="z-20 relative pt-[85px]" id="smooth-content">
+		<main class="z-20 relative pt-[62px] lg:pt-[85px]" id="smooth-content">
 			<slot />
 		</main>
 		<Footer/>
@@ -48,7 +48,18 @@ const { title, description, image } = Astro.props
 
 <style is:global>
 	:root {
-		--background: #181616;
+		--shark-50: #F1F3F5;
+		--shark-100: #E5E8EC;
+		--shark-200: #CDD3DC;
+		--shark-300: #B5BFCB;
+		--shark-400: #9DAABA;
+		--shark-500: #8595A9;
+		--shark-600: #64768D;
+		--shark-700: #4A5869;
+		--shark-800: #313A45;
+		--shark-900: #181C22;
+		--shark-950: #0B0D10;
+		--background: var(--shark-950);
 		--accent-50: #fbf4f8;
     --accent-100: #f9eaf3;
     --accent-200: #f5d5e8;
@@ -66,10 +77,15 @@ const { title, description, image } = Astro.props
 		background: var(--background);
 		color: #fff;
 		overflow-x: hidden;
-		scrollbar-width: none;
+		scrollbar-gutter: stable;
 	}
 	p{
 		margin-bottom: 1em;
+	}
+	.fadeIn {
+		animation-duration: 0.5s;
+		animation-fill-mode: both;
+		animation-name: fadeIn;
 	}
 </style>
 

@@ -4,7 +4,7 @@ import Container from '@/components/Container.astro'
 
 <footer class="text-sm text-gray-400 bg-[rgba(0,0,0,0.8)]">
   <Container>
-    <div class="py-16 flex items-start gap-12">
+    <div class="py-16 flex flex-wrap items-start gap-12">
       <div class="flex gap-4">
         <div>
           <img src="/images/oleggio-stemma.webp" alt="Oleggio Stemma">
@@ -24,9 +24,9 @@ import Container from '@/components/Container.astro'
         <h4 class="font-inria font-bold text-xl mb-4 uppercase">Biglietteria Online</h4>
         <img src="/images/ciao-tickets.webp" alt="Ciao Tickets">
       </div>
-      <div class="ml-auto">
+      <div class="md:ml-auto">
         <h4 class="font-inria font-bold text-xl mb-4 uppercase">Seguici sui social:</h4>
-        <div class="custom-filter flex gap-4 justify-end">
+        <div class="custom-filter flex gap-4 md:justify-end">
           <a href="#" class="hover:scale-125 transition-all duration-300"><img src="/images/social/facebook.svg" width="24" alt="Facebook"></a>
           <a href="#" class="hover:scale-125 transition-all duration-300"><img src="/images/social/instagram.svg" width="24" alt="Instagram"></a>
           <a href="#" class="hover:scale-125 transition-all duration-300"><img src="/images/social/twitter.svg" width="24" alt="Twitter"></a>
@@ -34,9 +34,9 @@ import Container from '@/components/Container.astro'
         </div>
       </div>
     </div>
-    <div class="flex justify-between gap-16 border-t border-t-[rgba(255,255,255,0.12)] py-8">
+    <div class="flex flex-col md:flex-row justify-between gap-2 border-t border-t-[rgba(255,255,255,0.12)] py-8">
       <div>
-        <p>Nessun Dorma - Teatro Civico di Oleggio - Tutti i diritti sono riservati</p>
+        <div>Nessun Dorma - Teatro Civico di Oleggio - Tutti i diritti sono riservati</div>
       </div>
       <div class="flex gap-4">
         <a href="/privacy-policy" class="hover:text-white hover:underline underline-offset-4">Privacy Policy</a>
