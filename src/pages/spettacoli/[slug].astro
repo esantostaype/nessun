@@ -6,6 +6,8 @@ import type { Event } from '@/interfaces'
 import EventDate from '@/components/EventDate.astro'
 import Button from '@/components/Button.astro'
 import { Image } from 'astro:assets'
+import LayoutInterior from '@/layouts/LayoutInterior.astro'
+import Title from '@/components/Title.astro'
 const { slug } = Astro.params
 const events: Event[] = await getEvents()
 const eventId = events.find(event => event.slug === slug)?.id
@@ -21,26 +23,34 @@ export async function getStaticPaths() {
 ---
 
 <Layout title={`${ event?.title } | Nessun Dorma`}>
-  <section class="py-16">
+  <LayoutInterior>
     <Container>
-      <div class="flex justify-between items-start">
-        <h1 class="invisible reveal-left font-inria text-7xl mb-8">{ event?.title }</h1>
+      <div class="flex flex-col md:flex-row justify-between md:items-center mb-4 md:mb-8">
+        <Title label={ event?.title || "Sin Título" }/>
         <div class="invisible reveal-left">
           <Button href="#" label="Acquista il Biglietto" />
         </div>
       </div>
-      <div class="relative flex items-start">
+      <div class="relative lg:flex lg:flex-row-reverse items-start">
+        <div class="flex-[0_0_60%] lg:-ml-[5%] lg:mt-16 rounded-xl z-10 relative">
+          <div class='aspect-[4/3] reveal invisible relative overflow-hidden'>
+            <Image width="640" height="480" alt={ event?.title || "Nessun Dorma" } class="aspect-[4/3] origin-left object-cover rounded-t-lg md:rounded-xl w-full" src={ event?.image.url || "/images/nessun-dorma.webp" }>
+          </div>
+          <div class="invisible reveal-left md:absolute top-4 right-4 bg-[rgba(0,0,0,0.6)] backdrop-blur-lg p-4 rounded-b-lg md:rounded-lg z-20">
+            <EventDate startDate={ event?.start_date || '' } />
+          </div>
+        </div>
         <div class="flex-[0_0_45%] relative z-20">
-          <div class="bg-[rgba(255,255,255,0.06)] backdrop-blur-lg p-12 rounded-t-xl w-full relative">
+          <div class="lg:bg-[rgba(255,255,255,0.06)] lg:backdrop-blur-lg lg:p-12 mt-8 lg:mt-0 rounded-t-xl w-full relative">
             <div set:html={event?.description}></div>
           </div>
-          <div class="bg-[rgba(255,255,255,0.12)] backdrop-blur-lg py-4 px-12 rounded-b-xl w-full relative">
+          <div class="lg:bg-[rgba(255,255,255,0.12)] lg:backdrop-blur-lg py-4 lg:px-12 mt-4 lg:mt-0 rounded-b-xl w-full relative">
             <div class="uppercase font-bold">Artista: { event?.artista || "-" }</div>
           </div>
           <div class="mt-4">
             <h3 class="mb-2 text-lg uppercase">Costo:</h3>
-            <div class="relative overflow-x-auto shadow-md rounded inline-block">
-              <table class="text-left w-auto">
+            <div class="relative overflow-x-auto max-w-full shadow-md rounded inline-block">
+              <table class="text-left w-full">
                 <thead class="text-shark200 uppercase bg-shark800 ">
                   <tr>
                     <th class="px-6 py-3">Interi</th>
@@ -59,15 +69,7 @@ export async function getStaticPaths() {
             </div>
           </div>
         </div>
-        <div class="flex-[0_0_60%] -ml-[5%] mt-16 rounded-xl z-10 relative">
-          <div class='aspect-[4/3] reveal invisible relative overflow-hidden'>
-            <Image width="640" height="480" alt={ event?.title || "Nessun Dorma" } class="aspect-[4/3] origin-left object-cover rounded-xl w-full" src={ event?.image.url || "/images/nessun-dorma.webp" }>
-          </div>
-          <div class="invisible reveal-left absolute top-4 right-4 bg-[rgba(0,0,0,0.6)] backdrop-blur-lg p-4 rounded-lg z-20">
-            <EventDate startDate={ event?.start_date || '' } />
-          </div>
-        </div>
       </div>
     </Container>
-  </section>
+  </LayoutInterior>
 </Layout>

@@ -6,6 +6,7 @@ import { Image } from 'astro:assets'
 import { getEvents } from '@/api'
 import type { Event } from '@/interfaces'
 import { format } from '@formkit/tempo'
+import Title from '@/components/Title.astro'
 const events: Event[] = await getEvents()
 const piemonteDalVivoEvents = events.filter((event) => 
   event.organizer?.some((org) => org.name === "Piemonte Dal Vivo")
@@ -18,15 +19,15 @@ const nessunDormaEvents = events.filter((event) =>
 <Layout title="Prezzi/Abbonamenti | Nessun Dorma">
   <LayoutInterior>
 		<Container>
-			<h1 class="invisible reveal-left font-inria text-7xl mb-8">Prezzi/Abbonamenti</h1>
-			<div class="flex mb-12">
-				<div class="flex-[3] flex items-center bg-[rgba(255,255,255,0.05)] backdrop-blur-lg p-10 rounded-l-lg">
+			<Title label="Prezzi / Abbonamenti"/>
+			<div class="lg:flex mb-12">
+				<div class="flex-[3] flex items-center bg-[rgba(255,255,255,0.05)] backdrop-blur-lg p-4 md:p-10 rounded-l-lg">
 					<Image src="/images/pianta-teatro.webp" width="1000" height="844" alt="Pianta Teatro" />
 				</div>
-				<div class="flex-[1] bg-[rgba(0,0,0,0.4)] backdrop-blur-lg p-10 rounded-r-lg">
-					<h2 class="text-3xl mb-4 leading-none">Norme di Comportamento</h2>
+				<div class="flex-[1] lg:bg-[rgba(0,0,0,0.4)] lg:backdrop-blur-lg lg:p-10 rounded-r-lg mt-6 lg:mt-0">
+					<h2 class="text-2xl md:text-3xl mb-4 leading-none">Norme di Comportamento</h2>
 					<p class="text-red-500 font-bold">IN SALA È TASSATIVAMENTE VIETATO SCATTARE FOTOGRAFIE O ESEGUIRE AUDIO E VIDEO</p>
-					<ul class="flex flex-col gap-2 mb-8">
+					<ul class="flex flex-col gap-2">
 						<li class="flex gap-2 items-start">
 							<img src="/images/check.svg" width="16" class="mt-1">
 							Prima di entrare in sala verificare il completo spegnimento dei telefoni cellulari
@@ -41,7 +42,7 @@ const nessunDormaEvents = events.filter((event) =>
 				</div>
 			</div>
 			<div>
-				<h2 class="text-3xl mb-4 leading-none">Fondazione Piemonte dal Vivo</h2>
+				<h2 class="text-2xl md:text-3xl mb-4 leading-none">Fondazione Piemonte dal Vivo</h2>
 				<div class="relative overflow-x-auto shadow-md rounded">
 					<table class="w-full text-left rtl:text-right">
 							<thead class="text-shark200 uppercase bg-shark800 ">
@@ -79,7 +80,7 @@ const nessunDormaEvents = events.filter((event) =>
 							</tbody>
 					</table>
 				</div>
-				<h2 class="text-3xl mb-4 leading-none mt-12">Nessum Dorma</h2>
+				<h2 class="text-2xl md:text-3xl mb-4 leading-none mt-12">Nessum Dorma</h2>
 				<div class="relative overflow-x-auto shadow-md rounded">
 					<table class="w-full text-left rtl:text-right">
 						<thead class="text-shark200 uppercase bg-shark800 ">

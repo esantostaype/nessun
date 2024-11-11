@@ -7,6 +7,7 @@ import EventDate from '@/components/EventDate.astro'
 import { Image } from 'astro:assets';
 import Categories from '@/components/Categories.astro'
 import Title from '@/components/Title.astro'
+import LayoutInterior from '@/layouts/LayoutInterior.astro'
 const { slug } = Astro.params
 const events = await getCategory( slug || '' )
 
@@ -20,14 +21,14 @@ export async function getStaticPaths() {
 ---
 
 <Layout title={`${ slug } | Nessun Dorma`}>
-  <section class="py-16">
+  <LayoutInterior>
     <Container>
 			<Title label={ slug }/>
-      <div class="flex items-start gap-12">
+      <div class="md:flex items-start gap-12">
         <div class="flex-[1]">
           <Categories/>
         </div>
-        <div class="flex-[4]">
+        <div class="mt-6 md:mt-0 flex-[4]">
           <ul class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-12">
             { events.map((event) => {
         
@@ -54,7 +55,7 @@ export async function getStaticPaths() {
         </div>
       </div>
     </Container>
-  </section>
+  </LayoutInterior>
 </Layout>
 
 <script>

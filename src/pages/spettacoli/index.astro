@@ -14,11 +14,11 @@ const events = await getEvents()
   <LayoutInterior>
     <Container>
 			<Title label='Spettacoli'/>
-      <div class="flex items-start gap-12">
+      <div class="md:flex items-start gap-12">
         <div class="flex-[1]">
           <Categories/>
         </div>
-        <div class="flex-[4]">
+        <div class="mt-6 md:mt-0 flex-[4]">
           <ul class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-12">
             { events.map((event) => {
         
